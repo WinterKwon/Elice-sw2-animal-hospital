@@ -74,10 +74,7 @@ function Login() {
     } else {
       // 만일 병원 유저가 로그인 했다면
       try {
-        const hospitalUser = await CustomAxiosPost.post(
-          '/hospital/login',
-          logins,
-        );
+        const hospitalUser = await customAxios.post('/hospital/login', logins);
         const { hospitalName, hospitalState } = hospitalUser.data.data;
 
         setHospital({

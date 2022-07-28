@@ -67,7 +67,7 @@
   - 백엔드
    
     <img alt="Nodejs" src="https://img.shields.io/badge/-Nodejs-43853d?style=flat-square&logo=Node.js&logoColor=white" />
-    <img alt="Nodejs" src="https://img.shields.io/badge/-Nodejs-43853d?style=flat-square&logo=Node.js&logoColor=white" />
+    <img alt="express" src="https://img.shields.io/badge/-express-43853d?style=flat-square&logo=express&logoColor=white" />
     <img alt="TypeScript" src="https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white" />
     <img alt="mongoDB" src="https://img.shields.io/badge/-mongoDB-019267?style=flat-square&logo=mongodb&logoColor=white" />
     <img alt="multer" src="https://img.shields.io/badge/-multer-012267?style=flat-square&logo=multer&logoColor=white" />
@@ -103,10 +103,10 @@
 
 | 이름   | 역할             | 구현 기능                                                        |
 | ------ | ---------------- | ---------------------------------------------------------------- |
-| 박민수 | 팀장, 프론트엔드 | 메인페이지, 회원가입  |
-| 김다운 | 프론트엔드       | 병원 정보 페이지 |
-| 김호진 | 프론트엔드       | 로그인, 상세페이지, 관리자 모든 예약 내역 |
-| 이지민 | 프론트엔드       |  회원, 병원, 관리자 마이페이지, 고객 정보, 펫 정보, 회원 내 예약 내역, 관리자 모든 회원 내역 페이지 및 디자인 |
-| 권재구 | 백엔드           |  병원 및 예약 |
-| 권필주 | 백엔드           |   일반회원, 펫정보, 리뷰, 소셜로그인 |
+| 박민수  | 팀장, 프론트엔드 | 메인페이지, 회원가입  |
+| 김다운  | 프론트엔드       | 병원 정보 페이지 |
+| 김호진  | 프론트엔드       | 로그인, 상세페이지, 관리자 모든 예약 내역 |
+| 이지민  | 프론트엔드       |  회원, 병원, 관리자 마이페이지, 고객 정보, 펫 정보, 회원 내 예약 내역, 관리자 모든 회원 내역 페이지 및 디자인 |
+| 권재구  | 백엔드           |  병원 및 예약 |
+| 권필주  | 백엔드           |   일반회원, 펫정보, 리뷰, 소셜로그인 |
 

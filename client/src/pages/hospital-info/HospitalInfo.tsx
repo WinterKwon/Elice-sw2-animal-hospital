@@ -28,14 +28,20 @@ import {
   InfoBtn,
   DeactivateContainer,
   DeactiveBtn,
-} from "../../components/InfoForm";
-import axios from "axios";
-import { useRecoilState, useResetRecoilState } from "recoil";
-import { hospitalLoginState } from "../../state/HospitalState";
-import { useNavigate } from "react-router-dom";
-import { CustomAxiosGet } from "../../common/CustomAxios";
-import { userState } from "../../state/UserState";
-import { AVAILABLE_KEYWORD_LENGTH, AVAILABLE_KEYWORD_COUNTS, CATEGORY_LIST, DAY_LIST, TIME_LIST } from "./Constants";
+} from '../../components/InfoForm';
+import axios from 'axios';
+import { useRecoilState, useResetRecoilState } from 'recoil';
+import { hospitalLoginState } from '../../state/HospitalState';
+import { useNavigate } from 'react-router-dom';
+import { CustomAxiosGet } from '../../common/CustomAxios';
+import { userState } from '../../state/UserState';
+import {
+  AVAILABLE_KEYWORD_LENGTH,
+  AVAILABLE_KEYWORD_COUNTS,
+  CATEGORY_LIST,
+  DAY_LIST,
+  TIME_LIST,
+} from './Constants';
 
 export default function HospitalInfo() {
   const [info, setInfo] = useRecoilState(hospitalLoginState);
@@ -381,8 +387,7 @@ export default function HospitalInfo() {
       try {
         //응답 성공
         // api
-        const API_URL =
-          'http://kdt-sw2-seoul-team14.elicecoding.com:5000/hospital/detail';
+        const API_URL = 'http://localhost:5100/hospital/detail';
         const response = await axios.get(API_URL, {
           withCredentials: true,
         });

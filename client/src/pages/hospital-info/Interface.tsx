@@ -15,7 +15,7 @@ export interface HospitalInfoType {
   licenseNumber: string;
   holiday: string[];
   hospitalCapacity: number;
-  tag: string[]|undefined;
+  tag: string[] | undefined;
   keyword: string[];
   image: string[];
 }

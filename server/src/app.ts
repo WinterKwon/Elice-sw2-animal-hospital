@@ -22,7 +22,7 @@ import { passportKakaoConfig } from './passport/KakaoStrategy';
 const app = express();
 
 // CORS 에러 방지
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' }));
+app.use(cors({ credentials: true, origin: 'http://localhost:3030' }));
 // app.use(function(req, res, next) {
 //   res.header("Access-Control-Allow-Origin", "*");
 //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");

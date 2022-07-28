@@ -185,7 +185,7 @@ export async function getAllUsersCTR (req : Request, res : Response, next : Next
             users: users,
             page : page,
             perPage:perPage,
-            totlaUsers : totalUsers});
+            totalUsers : totalUsers});
     } catch (error) {
         next(error)
     }

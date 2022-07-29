@@ -9,54 +9,33 @@ import Select from '@mui/material/Select';
 import { InfoBtn } from '../InfoForm';
 import { Link } from 'react-router-dom';
 import { CheckBtn } from '../../pages/user-reserv/ReserveStyle';
+import { useRecoilState } from 'recoil';
+import { StatusState } from '../../pages/user-reserv/UserReserve';
 
-const ReservationTitle = styled.h2`
-  text-align: center;
-`;
-const ReservationWrapper = styled.div`
-  margin: 20px;
-`;
-const ReservationSubTitle = styled.h3``;
+// 바뀐 로컬 주소 URL
+const API_URL = 'http://localhost:5100';
 
-const ModalCloseBtn = styled(InfoBtn)`
-  margin-left: 10px;
-`;
-const ModalModifyBtn = styled(InfoBtn)``;
-const ModalBtnContainer = styled.div`
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-`;
-
-const token = localStorage.getItem('token');
 const ResModal = ({ res }: any) => {
+  const token = localStorage.getItem('token');
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [status, setStatus] = useState<string>();
-  const isToken = localStorage.getItem('token');
+  const [status, _] = useRecoilState(StatusState);
   const handleChangeModalState = () => {
     setIsOpen(!isOpen);
+  };
+  const data = {
+    rezStatusId: status._id,
+    customerId: res.customer,
   };
 
   // 일반유저
   const onhandleUpdate = () => {
-    const data = {
-      rezStatusId: res.rezStatus,
-      customerId: res.customer,
-    };
-    try {
-      token &&
-        axios.patch(
-          `http://kdt-sw2-seoul-team14.elicecoding.com:5000/reservation/user/:${res.reservationId}`,
-          data,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        );
-    } catch {
-      // alert("비밀번호가 틀렸습니다.");
-    }
+    axios.patch(`${API_URL}/reservation/user/${res.reservationId}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    // .then((res) => setCancel(true));
+    setIsOpen(false);
   };
 
   return (
@@ -65,8 +44,6 @@ const ResModal = ({ res }: any) => {
         <ReservationWrapper>
           <ReservationTitle>예약 정보 조회</ReservationTitle>
           <ReservationSubTitle>펫 정보</ReservationSubTitle>
-          {/* TODO: 이거 뭔가 너무 징그러운데 어케 좋은 방법 있을까요?? API가 있으면 중복적으로 처리하지 않아도 되려나요??*/}
-          {/* 아니면 펫정보부분 따로 컴포넌트화 시키고 서비스 부분 따로 컴포넌트화 시키고 상태부분 따로 컴포넌트화 시킬까요?? */}
           <ReservationContent
             label="이름"
             defaultValue={res.petName}
@@ -130,5 +107,21 @@ const ResModal = ({ res }: any) => {
     </div>
   );
 };
+const ReservationTitle = styled.h2`
+  text-align: center;
+`;
+const ReservationWrapper = styled.div`
+  margin: 20px;
+`;
+const ReservationSubTitle = styled.h3``;
 
+const ModalCloseBtn = styled(InfoBtn)`
+  margin-left: 10px;
+`;
+const ModalModifyBtn = styled(InfoBtn)``;
+const ModalBtnContainer = styled.div`
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+`;
 export default ResModal;

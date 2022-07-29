@@ -46,6 +46,9 @@ const BookingButton = styled.button`
   cursor: pointer;
 `;
 
+// 바뀐 로컬 주소 URL
+const API_URL = 'http://localhost:5100';
+
 function Detail() {
   const { hospitalName } = useParams();
   const navigate = useNavigate();
@@ -59,9 +62,7 @@ function Detail() {
       setHospitalInfo(res.data.data.hospDetailInfo),
     );
     await axios
-      .get(
-        `http://kdt-sw2-seoul-team14.elicecoding.com:5000/hospital/${hospitalName}/Services`,
-      ) //
+      .get(`${API_URL}/hospital/${hospitalName}/Services`) //
       .then((res) => {
         setService(res.data.data.hospServices);
       });

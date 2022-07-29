@@ -1,7 +1,9 @@
 import axios from 'axios';
 
+// 바뀐 로컬 주소 URL
+const API_URL = 'http://localhost:5100';
 export const CustomAxiosPost = axios.create({
-  baseURL: 'http://kdt-sw2-seoul-team14.elicecoding.com:5000',
+  baseURL: API_URL,
   headers: {
     'Content-Type': 'application/json',
     Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -10,7 +12,7 @@ export const CustomAxiosPost = axios.create({
 });
 
 export const CustomAxiosGet = axios.create({
-  baseURL: 'http://kdt-sw2-seoul-team14.elicecoding.com:5000',
+  baseURL: API_URL,
   headers: {
     Authorization: `Bearer ${localStorage.getItem('token')}`,
   },

@@ -5,7 +5,15 @@ import { Header } from '../../components/Liststyle';
 import ReserveCard from './ReserveCard';
 import { Container, Column } from './ReserveStyle';
 import Pagination from '../home/Pagenation';
+import { atom, useRecoilState } from 'recoil';
 
+// 바뀐 로컬 주소 URL
+const API_URL = 'http://localhost:5100';
+
+export const StatusState = atom({
+  key: 'statusState', // unique ID (다른 atoms/selectors을 구별하기 위해서)
+  default: { _id: '', name: '' }, // default value (aka initial value)
+});
 function UserReserve() {
   const token = localStorage.getItem('token');
   const [resInfo, setResInfo] = useState<any>({
@@ -16,11 +24,12 @@ function UserReserve() {
   });
   const [page, setPage] = useState<number>(1);
   const [pages, setPages] = useState<any>({ perPage: 10 });
+  const [status, setStatus] = useRecoilState(StatusState); // todo => 리팩토링!!
 
   useEffect(() => {
     axios
       .get(
-        `http://kdt-sw2-seoul-team14.elicecoding.com:5000/reservation/user/list?page=${page}&perPage=${pages.perPage}`,
+        `${API_URL}/reservation/user/list?page=${page}&perPage=${pages.perPage}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -38,6 +47,17 @@ function UserReserve() {
         setResInfo(check);
       });
   }, [page]);
+
+  // todo => 리팩토링! 더 좋은 방법있는지 찾아보기
+  useEffect(() => {
+    axios
+      .get(`${API_URL}/reservationStatus/list`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => setStatus(res.data[2]));
+  }, []);
 
   const InfoArr = [];
   // useCallback 사용해보기

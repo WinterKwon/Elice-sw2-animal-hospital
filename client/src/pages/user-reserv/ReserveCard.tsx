@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { InfoCard, TextContainer } from '../../components/Liststyle';
 import { Column } from './ReserveStyle';
 import ResModal from '../../components/book/ResModal';

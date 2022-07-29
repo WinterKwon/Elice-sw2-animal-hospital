@@ -22,9 +22,10 @@ import { useResetRecoilState } from 'recoil';
 import { userState } from '../../state/UserState';
 import { hospitalLoginState } from '../../state/HospitalState';
 
-function UserInfo() {
-  console.log(111);
+// 바뀐 로컬 주소 URL
+const API_URL = 'http://localhost:5100';
 
+function UserInfo() {
   const token = localStorage.getItem('token');
   const navigate = useNavigate();
   // 받아온 정보를 저장하는 state
@@ -49,10 +50,8 @@ function UserInfo() {
 
   // 처음 한 번만 서버 통신
   useEffect(() => {
-    console.log(222);
-
     axios
-      .get('http://kdt-sw2-seoul-team14.elicecoding.com:5000/api/user', {
+      .get(`${API_URL}/api/user`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -102,15 +101,13 @@ function UserInfo() {
       currentPassword: currentPassword,
       newPassword: newPassword,
     };
-    axios.patch(
-      `http://kdt-sw2-seoul-team14.elicecoding.com:5000/api/users/${userInfo?.email}`,
-      data,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+    console.log(data);
+
+    axios.patch(`${API_URL}/api/users/${userInfo?.email}`, data, {
+      headers: {
+        Authorization: `Bearer ${token}`,
       },
-    );
+    });
   };
 
   // 로그아웃 함수
@@ -130,7 +127,7 @@ function UserInfo() {
     //TODO
     await axios
       .patch(
-        `http://kdt-sw2-seoul-team14.elicecoding.com:5000/api/expiration
+        `${API_URL}/api/expiration
       `,
         {},
         {

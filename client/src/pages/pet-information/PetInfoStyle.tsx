@@ -98,6 +98,7 @@ export const NameInput = styled(InfoInput)`
 export const RadioContainer = styled.div`
   display: flex;
 `;
+
 export const Item = styled.div`
   display: flex;
   margin-left: 0.2rem;
@@ -105,36 +106,12 @@ export const Item = styled.div`
   position: relative;
   box-sizing: border-box;
 `;
-export const RadioButtonLabel = styled.label`
-  position: absolute;
-  top: 21%;
-  left: 10px;
-  width: 13px;
-  height: 13px;
-  border-radius: 50%;
-  background-color: ${(props) => props.theme.palette.lightgray};
-`;
-export const RadioButton = styled.input`
-  opacity: 0;
-  z-index: 1;
-  cursor: pointer;
-  width: 25px;
-  height: 25px;
-  &:hover ~ ${RadioButtonLabel} {
-    background-color: ${(props) => props.theme.palette.orange};
-    opacity: 0.5;
-  }
-  &:checked + ${RadioButtonLabel} {
-    border: none;
-    background-color: ${(props) => props.theme.palette.orange};
-  }
-`;
+
 export const RadioText = styled.p`
   font-size: 0.9rem;
   margin-left: 0.4rem;
 `;
 
-////////
 export const Container = styled.form`
   margin: 2rem 0;
   padding: 2rem;

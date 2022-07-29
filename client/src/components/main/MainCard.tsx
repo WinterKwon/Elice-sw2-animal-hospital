@@ -37,7 +37,7 @@ function MainCard({ filtered }: IProps) {
     return (
       <MainCardContainer to={`hospital/${items.name}/detail`} key={index}>
         <MainCardImg
-          src={items.image[0] || '/mainDefaultImg.jpg'}
+          src={items.image[0] || '/mainDefaultImg.png'}
           alt=""
           width="300px"
           height="285px"

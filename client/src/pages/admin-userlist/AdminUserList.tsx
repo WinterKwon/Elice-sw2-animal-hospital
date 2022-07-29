@@ -6,6 +6,7 @@ import { UserInfoType } from '../user-info/Interface';
 import styled from 'styled-components';
 import Checkbox from '../../components/Buttons/CheckBox';
 import SearchBar from '../../components/SearchBar';
+import Pagination from '../home/Pagenation';
 
 const Container = styled(ListContainer)`
   max-width: 700px;
@@ -15,6 +16,8 @@ const Container = styled(ListContainer)`
 const FlexContainer = styled.div`
   display: flex;
 `;
+// 바뀐 로컬 주소 URL
+const API_URL = 'http://localhost:5100';
 
 const AdminUserList: React.FC = () => {
   const token = localStorage.getItem('token');
@@ -22,18 +25,25 @@ const AdminUserList: React.FC = () => {
   const [search, setSearch] = useState<string>();
   const [normal, setNormal] = useState<boolean>(true);
   const [expired, setExpired] = useState<boolean>(true);
+  const [page, setPage] = useState<number>(1);
+  const [pages, setPages] = useState<any>({ perPage: 100 });
 
   useEffect(() => {
     axios
-      .get('http://kdt-sw2-seoul-team14.elicecoding.com:5000/api/userlist', {
+      .get(`${API_URL}/api/userlist?page=${page}&perPage=${pages.perPage}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then((res) => {
-        setDatas(res.data);
+        setDatas(res.data.users);
+        setPages({
+          perPage: res.data.perPage,
+          totalPage: res.data.totlaUsers,
+        });
+        setPage(res.data.page);
       });
-  }, []);
+  }, [page]);
 
   const onhandleCheck = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.target.name === 'normal' ? setNormal(!normal) : setExpired(!expired);
@@ -52,6 +62,7 @@ const AdminUserList: React.FC = () => {
   if (search) {
     list = list.filter((data: any) => data.email.includes(search));
   }
+  console.log(pages);
 
   return (
     <Container>
@@ -80,6 +91,12 @@ const AdminUserList: React.FC = () => {
       {list.map((data: any, i: number) => (
         <UserCard key={i} data={data} />
       ))}
+      <Pagination
+        total={pages?.totalPage}
+        limit={pages.perPage}
+        page={page}
+        setPage={(page: number) => setPage(page)}
+      />
     </Container>
   );
 };

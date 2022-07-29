@@ -64,6 +64,8 @@ export default function Tags({
   page,
   setPage,
 }: ITagsProps) {
+  // 바뀐 로컬 주소 URL
+  const API_URL = 'http://localhost:5100';
   const [tagData, setTagData] = useState<ITagData[]>([]); // 태그 데이터 모음
   const [tag, setTag] = useState<number>(0); // 클릭 된 태그의 인덱스
   const [searchParams, setSearchParams] = useSearchParams();
@@ -71,21 +73,18 @@ export default function Tags({
   const [filterData, setFilterData] = useState<IData[]>([]);
 
   async function getData() {
-    const res = await axios.get(
-      'http://kdt-sw2-seoul-team14.elicecoding.com:5000/hospitalTag/list',
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+    const res = await axios.get(`${API_URL}/hospitalTag/list`, {
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
+    });
     setTagData([...res.data]);
     initialList();
   }
 
   async function initialList() {
     const res = await axios.get(
-      `http://kdt-sw2-seoul-team14.elicecoding.com:5000/hospital/list/main?page=1&perPage=${limit}&tagName=${paramsTag}`,
+      `${API_URL}/hospital/list/main?page=1&perPage=${limit}&tagName=${paramsTag}`,
     );
     const data = await res.data.data.hospitals;
 
@@ -104,7 +103,7 @@ export default function Tags({
   useEffect(() => {
     (async function getNewData() {
       const res = await axios.get(
-        `http://kdt-sw2-seoul-team14.elicecoding.com:5000/hospital/list/main?page=${page}&perPage=${limit}&tagName=${paramsTag}`,
+        `${API_URL}/hospital/list/main?page=${page}&perPage=${limit}&tagName=${paramsTag}`,
       ); // TODO: tagName=tagState로 변경. page 변경
       const { data } = await res.data;
       setFilterData(data.hospitals);

@@ -1,9 +1,8 @@
 import React, { useState, useRef, useCallback } from 'react';
+import RadioBtn from '../../components/Buttons/RadioBtn';
 import { UploadFileInput } from '../hospital-info/Style';
 import {
   Title,
-  RadioButton,
-  RadioButtonLabel,
   RadioContainer,
   RadioText,
   Item,
@@ -11,7 +10,6 @@ import {
   Container,
   AddInput,
   AddTextarea,
-  Button,
   InfoContainer,
   Btn,
   UploadFileLabel,
@@ -29,15 +27,6 @@ function AddPet({ onhandleAdd }: any) {
   const breedRef = useRef<HTMLInputElement>(null);
   const medicalHistoryRef = useRef<HTMLTextAreaElement>(null);
   const vaccinationRef = useRef<HTMLTextAreaElement>(null);
-
-  const onhandleGender = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setGender(value);
-  };
-  const onhandleNeut = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setNeut(value);
-  };
 
   const onSubmit = async (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault();
@@ -81,28 +70,20 @@ function AddPet({ onhandleAdd }: any) {
             <RadioText>성별</RadioText>
           </Item>
           <RadioContainer>
-            <Item>
-              <RadioButton
-                type="radio"
-                name="gender"
-                value="F"
-                checked={gender === 'F'}
-                onChange={onhandleGender}
-              />
-              <RadioButtonLabel />
-              <RadioText>F</RadioText>
-            </Item>
-            <Item>
-              <RadioButton
-                type="radio"
-                name="gender"
-                value="M"
-                checked={gender === 'M'}
-                onChange={onhandleGender}
-              />
-              <RadioButtonLabel />
-              <RadioText>M</RadioText>
-            </Item>
+            <RadioBtn
+              value="F"
+              state={gender}
+              setFunc={(gender: string) => {
+                setGender(gender);
+              }}
+            />
+            <RadioBtn
+              value="M"
+              state={gender}
+              setFunc={(gender: string) => {
+                setGender(gender);
+              }}
+            />
           </RadioContainer>
         </Contents>
         <Contents>
@@ -110,39 +91,27 @@ function AddPet({ onhandleAdd }: any) {
             <RadioText>중성화</RadioText>
           </Item>
           <RadioContainer>
-            <Item>
-              <RadioButton
-                type="radio"
-                name="neutralized"
-                value="완료"
-                checked={neut === '완료'}
-                onChange={onhandleNeut}
-              />
-              <RadioButtonLabel />
-              <RadioText>완료</RadioText>
-            </Item>
-            <Item>
-              <RadioButton
-                type="radio"
-                name="neutralized"
-                value="미완료"
-                checked={neut === '미완료'}
-                onChange={onhandleNeut}
-              />
-              <RadioButtonLabel />
-              <RadioText>미완료</RadioText>
-            </Item>
-            <Item>
-              <RadioButton
-                type="radio"
-                name="neutralized"
-                value="모름"
-                checked={neut === '모름'}
-                onChange={onhandleNeut}
-              />
-              <RadioButtonLabel />
-              <RadioText>모름</RadioText>
-            </Item>
+            <RadioBtn
+              value="완료"
+              state={neut}
+              setFunc={(status: string) => {
+                setNeut(status);
+              }}
+            />
+            <RadioBtn
+              value="미완료"
+              state={neut}
+              setFunc={(status: string) => {
+                setNeut(status);
+              }}
+            />
+            <RadioBtn
+              value="모름"
+              state={neut}
+              setFunc={(status: string) => {
+                setNeut(status);
+              }}
+            />
           </RadioContainer>
         </Contents>
         <AddTextarea

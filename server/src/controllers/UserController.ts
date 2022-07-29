@@ -137,12 +137,11 @@ export async function updateUserInfoCTR (req : Request, res : Response, next : N
         const userId = req.currentUserId;
         const user = await userService.getUserData(userId);
         const email = req.params.userEmail;
-
-
-
+        
         if(email === user.email) {
-            const {userName, currentPassword, password, phoneNumber, address, role} = req.body;
-
+            const {userName, currentPassword, phoneNumber, address, role} = req.body;
+            const password = req.body.newPassword;
+           
             const regixPW = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%#?&])[A-Za-z\d@$!%*#?&]{8,20}/;
 
             if(!currentPassword || !regixPW.test(password) ){

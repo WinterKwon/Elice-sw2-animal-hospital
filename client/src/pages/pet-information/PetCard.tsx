@@ -9,9 +9,6 @@ import {
   InfoInput,
   InfoTextarea,
   NameInput,
-  AddInput,
-  RadioButton,
-  RadioButtonLabel,
   RadioContainer,
   RadioText,
   Item,
@@ -19,11 +16,15 @@ import {
   Contents,
   Button,
 } from './PetInfoStyle';
+import RadioBtn from '../../components/Buttons/RadioBtn';
 
 const defaultImg = '/defaultImg.png';
-const token = localStorage.getItem('token');
+
+// 바뀐 로컬 주소 URL
+const API_URL = 'http://localhost:5100';
 
 function PetCard({ pet, idx, onhandleDelete }: any) {
+  const token = localStorage.getItem('token');
   const [petInfo, setPetInfo] = useState<PetInfoType>({
     _id: '',
     image: '',
@@ -61,28 +62,16 @@ function PetCard({ pet, idx, onhandleDelete }: any) {
     event.preventDefault();
     const data = { ...petInfo, petId: pet._id, sex: gender, neutralized: neut };
     try {
-      axios.patch(
-        `http://kdt-sw2-seoul-team14.elicecoding.com:5000/pet/update`,
-        data,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+      axios.patch(`${API_URL}/pet/update`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
     } catch (err) {
+      console.log(err);
+
       // alert("입력값을 다시 한 번 확인해주세요 🥲");
     }
-  };
-
-  // radio 관련
-  const onhandleGender = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setGender(value);
-  };
-  const onhandleNeut = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value = event.target.value;
-    setNeut(value);
   };
 
   return (
@@ -133,28 +122,22 @@ function PetCard({ pet, idx, onhandleDelete }: any) {
               <RadioText>성별</RadioText>
             </Item>
             <RadioContainer>
-              <Item>
-                <RadioButton
-                  type="radio"
-                  name={`${idx}gender`}
-                  value="F"
-                  checked={gender === 'F'}
-                  onChange={(event) => onhandleGender(event)}
-                />
-                <RadioButtonLabel />
-                <RadioText>F</RadioText>
-              </Item>
-              <Item>
-                <RadioButton
-                  type="radio"
-                  name={`${idx}gender`}
-                  value="M"
-                  checked={gender === 'M'}
-                  onChange={(event) => onhandleGender(event)}
-                />
-                <RadioButtonLabel />
-                <RadioText>M</RadioText>
-              </Item>
+              <RadioBtn
+                value="F"
+                state={gender}
+                name={`${idx}gender`}
+                setFunc={(gender: string) => {
+                  setGender(gender);
+                }}
+              />
+              <RadioBtn
+                value="M"
+                state={gender}
+                name={`${idx}gender`}
+                setFunc={(gender: string) => {
+                  setGender(gender);
+                }}
+              />
             </RadioContainer>
           </Contents>
           <Contents>
@@ -162,39 +145,30 @@ function PetCard({ pet, idx, onhandleDelete }: any) {
               <RadioText>중성화</RadioText>
             </Item>
             <RadioContainer>
-              <Item>
-                <RadioButton
-                  type="radio"
-                  name={`${idx}neutralized`}
-                  value="완료"
-                  checked={neut === '완료'}
-                  onChange={(event) => onhandleNeut(event)}
-                />
-                <RadioButtonLabel />
-                <RadioText>완료</RadioText>
-              </Item>
-              <Item>
-                <RadioButton
-                  type="radio"
-                  name={`${idx}neutralized`}
-                  value="미완료"
-                  checked={neut === '미완료'}
-                  onChange={(event) => onhandleNeut(event)}
-                />
-                <RadioButtonLabel />
-                <RadioText>미완료</RadioText>
-              </Item>
-              <Item>
-                <RadioButton
-                  type="radio"
-                  name={`${idx}neutralized`}
-                  value="모름"
-                  checked={neut === '모름'}
-                  onChange={(event) => onhandleNeut(event)}
-                />
-                <RadioButtonLabel />
-                <RadioText>모름</RadioText>
-              </Item>
+              <RadioBtn
+                value="완료"
+                state={neut}
+                name={`${idx}neutralized`}
+                setFunc={(status: string) => {
+                  setNeut(status);
+                }}
+              />
+              <RadioBtn
+                value="미완료"
+                state={neut}
+                name={`${idx}neutralized`}
+                setFunc={(status: string) => {
+                  setNeut(status);
+                }}
+              />
+              <RadioBtn
+                value="모름"
+                state={neut}
+                name={`${idx}neutralized`}
+                setFunc={(status: string) => {
+                  setNeut(status);
+                }}
+              />
             </RadioContainer>
           </Contents>
           <InfoTextarea

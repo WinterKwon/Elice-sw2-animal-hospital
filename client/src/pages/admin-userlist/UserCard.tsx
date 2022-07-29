@@ -8,6 +8,8 @@ import {
   StatusContainer,
   Select,
 } from '../../components/Liststyle';
+// 바뀐 로컬 주소 URL
+const API_URL = 'http://localhost:5100';
 function UserCard({ data }: any) {
   const token = localStorage.getItem('token');
   const [status, setStatus] = useState<string>(data?.userStatus);
@@ -23,7 +25,7 @@ function UserCard({ data }: any) {
       userStatus: value === 'normal' ? 'expired' : 'normal',
     };
 
-    axios.patch(`http://localhost:5000/api/admin/status`, id, {
+    axios.patch(`${API_URL}/api/admin/status`, id, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

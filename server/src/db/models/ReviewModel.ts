@@ -1,6 +1,7 @@
-import { model, Types } from 'mongoose';
+import { model} from 'mongoose';
 import { ReviewSchema } from '../schemas/ReviewSchema';
 import { ReviewInfo, ReviewData } from '../../types/ReviewTypes';
+import { HttpError } from '../../middlewares';
 
 
 const Review = model('reviews', ReviewSchema);
@@ -15,17 +16,19 @@ export class ReviewModel {
   async findByOwnerId(userId: string): Promise<ReviewData[]> {
     const review = await Review.find({ userId });
     if (!review) {
-      throw new Error('유저가 작성한 리뷰가 없습니다.');
-        // return {"유저가 작성한 리뷰가 없습니다."};
+      throw new HttpError(
+        400,
+        '유저가 작성한 리뷰가 없습니다.');
     }
     return review;
   }
 
   async findByHospitalId(hospitalId : string): Promise<ReviewData[]> {
     const review = await Review.find({targetHospital : hospitalId});
-    console.log("hospitalId from review model : ", hospitalId )
     if(!review){
-        throw new Error('해당 병원에 대한 리뷰가 없습니다.')
+        throw new HttpError(
+          400,
+          '해당 병원에 대한 리뷰가 없습니다.')
     }
     return review;
   }
@@ -33,7 +36,9 @@ export class ReviewModel {
   async findById(id :string) : Promise<ReviewData>{
     const review = await Review.findOne({_id:id});
     if(!review){
-        throw new Error('리뷰를 찾을 수 없습니다.')
+        throw new HttpError(
+          404,
+          '리뷰를 찾을 수 없습니다.')
     }
     return review;
 
@@ -56,7 +61,9 @@ export class ReviewModel {
     const option = {returnOriginal : false};
     const updatedReview = await Review.findOneAndUpdate(filter, update, option);
     if(!updatedReview){
-        throw new Error("유저의 리뷰를 찾을 수 없습니다.")
+        throw new HttpError(
+          400,
+          "요청한 리뷰를 찾을 수 없습니다.")
     }
     return updatedReview;
 

@@ -17,7 +17,7 @@ import passport from 'passport';
 import session from 'express-session';
 import MongoStore from 'connect-mongo';
 import { passportLocalConfig } from './passport/LocalStrategy';
-import { passportKakaoConfig } from './passport/KakaoStrategy';
+import { passportConfig } from './passport';
 
 const app = express();
 
@@ -36,20 +36,17 @@ app.use(express.json());
 // Content-Type: application/x-www-form-urlencoded 형태의 데이터를 인식하고 핸들링할 수 있게 함.
 
 app.use(express.urlencoded({ extended: false }));
-app.use(
-  session({
-    secret: 'team14-animal-hospital',
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({
-      mongoUrl: process.env.MONGODB_URL,
-    }),
+app.use(session({
+  secret: 'team14-animal-hospital',
+  resave: false,
+  saveUninitialized: false,
+  store: MongoStore.create({
+  mongoUrl: process.env.MONGODB_URL,
   })
-);
+}));
 app.use(passport.initialize());
 app.use(passport.session());
-passportLocalConfig();
-passportKakaoConfig();
+passportConfig();
 
 app.use('/hospitalStatus', hospStatusRouter);
 app.use('/hospitalRegStatus', hospRegStatusRouter);

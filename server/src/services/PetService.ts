@@ -1,5 +1,6 @@
-import { PetData, PetInfo, petModel, PetModel } from '../db';
-import mongoose, { model } from 'mongoose';
+import mongoose from 'mongoose';
+import { petModel, PetModel } from '../db';
+import { PetData, PetInfo } from '../types/PetTypes';
 
 interface PetInfoRequired {
   owner: string;
@@ -90,6 +91,7 @@ class PetService {
     return { message: `${petId} 펫 정보가 삭제되었습니다` };
   }
 
+  // 권재구 TODO : 코드 작성 이유 및 사용처?
   // 펫 ID 배열에 담긴 것들을 조회
   async findByIds(petIds: string[]): Promise<PetData[]> {
     const petInfoes: PetData[] = [];

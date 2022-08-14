@@ -1,18 +1,37 @@
-import {Router} from 'express';
+import { Router } from 'express';
+import {
+  postReviewCTR,
+  getReviewCTR,
+  getMyReviewCTR,
+  updateReviewCTR,
+  getAllReviewsCTR,
+  deleteReviewCTR,
+  getHospitalRatingCTR,
+} from '../controllers/ReviewController';
 
-import {postReviewCTR, getReviewCTR, getMyReviewCTR, updateReviewCTR, getAllReviewsCTR,deleteReviewCTR, getHospitalRatingCTR} from '../controllers/ReviewController';
-
-import {loginRequired} from '../middlewares';
+import { loginRequired } from '../middlewares';
 
 const router = Router();
 
+//리뷰 등록
 router.post('/posting', loginRequired, postReviewCTR);
-router.get('/vet', getReviewCTR );
+
+//병원상세페이지에서 병원 리뷰 조회
+router.get('/vet', getReviewCTR);
+
+//개별 병원의 리뷰 평균
 router.get('/vet/star', getHospitalRatingCTR);
-router.get('/user',loginRequired, getMyReviewCTR);
+
+//일반유저의 자신이 작성한 리뷰 조회
+router.get('/user', loginRequired, getMyReviewCTR);
+
+//관리자의 모든 리뷰 조회
 router.get('/admin', loginRequired, getAllReviewsCTR);
+
+//일반유저의 자기 리뷰 수정
 router.patch('/update', loginRequired, updateReviewCTR);
-router.delete('/delete', loginRequired, deleteReviewCTR)
 
+//일반유저의 자기 리뷰 삭제
+router.delete('/delete', loginRequired, deleteReviewCTR);
 
-export {router as reviewRouter};
+export { router as reviewRouter };

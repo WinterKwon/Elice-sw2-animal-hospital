@@ -1,9 +1,16 @@
 import { userModel, UserModel } from '../db';
-import {UserStatus, UserInfo, UserData, StatusInfoRequired, LoginInfo, LoginResult, UserInfoRequired} from '../types/UserTypes';
+import {
+  UserStatus,
+  UserInfo,
+  UserData,
+  StatusInfoRequired,
+  LoginInfo,
+  LoginResult,
+  UserInfoRequired,
+} from '../types/UserTypes';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import {HttpError} from '../middlewares';
-
+import { HttpError } from '../middlewares';
 
 const jwtSecretkey = process.env.JWT_SECRET_KEY as string;
 class UserService {
@@ -162,36 +169,37 @@ class UserService {
   }
 
   //전체 유저
-  async getAllUsers() : Promise<UserData[]>{
+  async getAllUsers(): Promise<UserData[]> {
     const users = await this.userModel.findAll();
     return users;
   }
 
   //유저 정보 pagination
-  async getUsers(page : number, perPage : number): Promise<UserData[]> {
+  async getUsers(page: number, perPage: number): Promise<UserData[]> {
     const users = await this.userModel.findAllByPage(page, perPage);
     return users;
   }
 
+  //유저 회원탈퇴시 상태 변경
   async setStatus(
     statusInfoRequired: StatusInfoRequired
   ): Promise<string | undefined> {
-    // const { userId, userStatus } = statusInfoRequired;
-    // const user = await this.userModel.findById(userId);
     const newStatus = await this.userModel.statusExpired(statusInfoRequired);
-    console.log(newStatus);
     return newStatus;
   }
 
-    // 관리자의 회원 상태 변경
-    async setUserStatus( statusInfoRequired : StatusInfoRequired) : Promise<UserData>{
-      const { userId, userStatus } = statusInfoRequired;
-      const user = await this.userModel.findById(userId)
-      console.log(statusInfoRequired);
-      const updatedUserStatus = await this.userModel.updateUserStatus(statusInfoRequired);
-      return updatedUserStatus;
-    }
-
+  // 관리자의 회원 상태 변경
+  async setUserStatus(
+    statusInfoRequired: StatusInfoRequired
+  ): Promise<UserData> {
+    const { userId, userStatus } = statusInfoRequired;
+    const user = await this.userModel.findById(userId);
+    console.log(statusInfoRequired);
+    const updatedUserStatus = await this.userModel.updateUserStatus(
+      statusInfoRequired
+    );
+    return updatedUserStatus;
+  }
 
   //탈퇴한 회원 로그인 차단
   async blockExpiredUser(email: string): Promise<boolean> {
@@ -220,34 +228,7 @@ class UserService {
     }
   }
 
-  async getAccessToken(userId: string, role: string, userStatus: string) {
-    return jwt.sign(
-      { userId: userId, role: role, userStatus: userStatus },
-      jwtSecretkey,
-      { expiresIn: '3h' }
-    );
-  }
-
-
-  async saveRefreshToken(userId: string) {
-    const refreshToken = jwt.sign({}, jwtSecretkey, { expiresIn: '14d' });
-    const savedInfo = await this.userModel.updateRefreshToken(
-      userId,
-      refreshToken
-    );
-    if (!savedInfo) {
-      throw new Error('존재하지 않는 계정입니다.');
-
-    }
-    return savedInfo;
-  }
-
-
-  async clearRefreshToken(userId: string) {
-
-    return await this.userModel.deleteRefreshToken(userId);
-  }
-
+ //권재구 TODO : 코드 작성 이유 및 사용처?
   async findByIds(userIds: string[]): Promise<UserData[]> {
     const userInfoes: UserData[] = [];
     console.log(userIds);

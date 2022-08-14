@@ -1,77 +1,66 @@
-import {Schema, Types} from 'mongoose';
+import { Schema } from 'mongoose';
 
-
-const PetSchema = new Schema({
-    owner : {
-        type : String,
-        required : true
+const PetSchema = new Schema(
+  {
+    owner: {
+      type: String,
+      required: true,
     },
-    
-    species : 
-    {
-        type : String,
-        required : true
+
+    species: {
+      type: String,
+      required: true,
     },
-    
-    breed : 
-        {
-            type : String,
-            required : true
-        }
-    ,
-    name : 
-        {
-            type : String,
-            required : true
-        },
 
-    age :     
-        {
-            type : Number,
-            required : true
-        },
+    breed: {
+      type: String,
+      required: true,
+    },
 
-    sex :
-        {
-            type : String,
-            required : true
-        },
+    name: {
+      type: String,
+      required: true,
+    },
 
+    age: {
+      type: Number,
+      required: true,
+    },
 
-    weight :
-        {
-            type : Number,
-            required : true
-        }, 
+    sex: {
+      type: String,
+      required: true,
+    },
 
-    medicalHistory : 
-        {
-            type : String,
-            required : true
-        },
+    weight: {
+      type: Number,
+      required: true,
+    },
 
-    vaccination :
-        {
-            type : String,
-            required : false
-        },
+    medicalHistory: {
+      type: String,
+      required: true,
+    },
 
-    neutralized : 
-        {
-            type : String,
-            required : false
-        },
+    vaccination: {
+      type: String,
+      required: false,
+    },
 
-    image : 
-        {
-            type : String,
-            required : false
-        },
-}, {
-    collection : 'pets',
-    timestamps : true
-}
+    neutralized: {
+      type: String,
+      required: false,
+    },
 
+    image: {
+      type: String,
+      required: false,
+    },
+  },
+  {
+    collection: 'pets',
+    timestamps: true,
+  }
 );
 
-export {PetSchema}
+export { PetSchema };

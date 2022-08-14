@@ -18,11 +18,11 @@
 * 커스텀 에러 핸들링
 
 ### 아쉬운 점
-* 카카오소셜로그인 프론트와 연동하지 못한 점 -> <span style="color:yellow">logins 시리즈</span>
+* 카카오소셜로그인 프론트와 연동하지 못한 점 ->  로그인 인증 방식에 대한 추가 연구 [logins 시리즈](https://github.com/WinterKwon/logins)
 
 
 <details> 
-<summary> Pet Doctor </summary>
+<summary> Pet Doctor 팀 README</summary>
 
 # **동물 병원 예약 관리 플랫폼**
 

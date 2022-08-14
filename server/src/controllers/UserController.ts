@@ -163,18 +163,12 @@ export async function updateUserInfoCTR(
       const regixPW =
         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%#?&])[A-Za-z\d@$!%*#?&]{8,20}/;
 
-      if (!currentPassword ) {
-        throw new HttpError(
-          400,
-          '비밀번호가 없습니다.'
-        );
+      if (!currentPassword) {
+        throw new HttpError(400, '비밀번호가 없습니다.');
       }
 
       if (password && !regixPW.test(password)) {
-        throw new HttpError(
-          400,
-          '새로운 비밀번호가 규칙에 맞지 않습니다.'
-        );
+        throw new HttpError(400, '새로운 비밀번호가 규칙에 맞지 않습니다.');
       }
 
       const userInfoRequired = { email, currentPassword };

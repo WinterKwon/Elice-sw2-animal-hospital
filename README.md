@@ -1,9 +1,25 @@
-### 서비스 내용
+### 프로젝트 서비스 내용
 동물 병원 예약 관리 플랫폼
 
 ### 백엔드 참여 부분
 * 유저, 펫, 리뷰 관련 DB 모델링 및 전체 API 구현  
 * 카카오 소셜 로그인 백엔드 구현
+
+### 기술스택
+
+<img alt="Nodejs" src="https://img.shields.io/badge/-Nodejs-43853d?style=flat-square&logo=Node.js&logoColor=white" /> <img alt="express" src="https://img.shields.io/badge/-express-43853d?style=flat-square&logo=express&logoColor=white" />
+<img alt="TypeScript" src="https://img.shields.io/badge/-TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white" />
+<img alt="mongoDB" src="https://img.shields.io/badge/-mongoDB-019267?style=flat-square&logo=mongodb&logoColor=white" />
+<img alt="multer" src="https://img.shields.io/badge/-multer-012267?style=flat-square&logo=multer&logoColor=white" />
+
+### 배운점
+* Express 프레임워크 + TypeScript 적용
+* controller층 분리 -> NestJs 프레임워크 사용 전 징검다리
+* 커스텀 에러 핸들링
+
+### 아쉬운 점
+* 카카오소셜로그인 프론트와 연동하지 못한 점 -> <span style="color:yellow">logins 시리즈</span>
+
 
 <details> 
 <summary> Pet Doctor </summary>

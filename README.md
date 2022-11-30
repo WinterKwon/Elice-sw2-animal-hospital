@@ -19,7 +19,7 @@
 * 커스텀 에러 핸들링
 
 ### 아쉬운 점
-* 카카오소셜로그인 프론트와 연동하지 못한 점 ->  로그인 인증 방식에 대한 추가 연구 [logins 시리즈](https://github.com/WinterKwon/logins)
+* 카카오소셜로그인 프론트와 연동하지 못한 점 ->  [정치발자국 프로젝트](https://github.com/oxopolitics-internship-for-elice/footprints) (Nest.js)에서 구현 
 
 
 <details> 
